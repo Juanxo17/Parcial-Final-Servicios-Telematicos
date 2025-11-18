@@ -1,5 +1,4 @@
-
-CREATE DATABASE myflaskapp;
+CREATE DATABASE IF NOT EXISTS myflaskapp;
 use myflaskapp;
 
 CREATE TABLE users (
@@ -9,7 +8,6 @@ CREATE TABLE users (
     username varchar(255),
     password varchar(255)
 );
-
 
 INSERT INTO users VALUES(null, "juan", "juan@gmail.com", "juan", "123"),
     (null, "maria", "maria@gmail.com", "maria", "456");
