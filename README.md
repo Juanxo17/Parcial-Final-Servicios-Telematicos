@@ -87,48 +87,17 @@ Grafana quedó accesible en el puerto 3000 con credenciales admin/admin.
 
 ## Evidencias del Despliegue
 
-### Video Demostrativo
+Video corto que incluye:
+- Contenedores Docker en ejecución (db y webapp)
+- Aplicación web funcionando con HTTPS
+- Interfaz de Prometheus mostrando targets activos
+- Alertas configuradas en Prometheus
+- Dashboard personalizado en Grafana con métricas en tiempo real
+- Dashboard importado Node Exporter Full
+- Consola de AWS EC2 con la instancia activa
+- Security Group con las reglas de firewall
 
-Se incluye un video de demostración que muestra el funcionamiento completo del sistema desplegado. El video sigue la siguiente secuencia:
-
-**1. Despliegue Local con Docker (0:00 - 1:00)**
-- Terminal mostrando `docker ps` con contenedores mysql_db y flask_webapp en estado running
-- Navegador accediendo a https://localhost mostrando la aplicación web
-- Advertencia de certificado SSL autofirmado y aceptación
-- Funcionalidad CRUD de la aplicación (crear, editar, eliminar usuarios)
-
-**2. Infraestructura AWS (1:00 - 2:00)**
-- Consola de AWS EC2 mostrando la instancia t2.micro en estado running
-- Detalles de la instancia: tipo, IP pública (44.220.163.23), zona de disponibilidad
-- Security Group con reglas de entrada para puertos 22, 80, 443, 3000, 9090, 9100
-- Navegador accediendo a https://44.220.163.23 mostrando la aplicación desplegada en la nube
-
-**3. Monitoreo con Prometheus (2:00 - 3:30)**
-- Acceso a http://44.220.163.23:9090
-- Sección Status → Targets mostrando prometheus y node_exporter en estado UP
-- Ejecución de queries PromQL:
-  - `node_cpu_seconds_total` mostrando métricas de CPU
-  - `node_memory_MemAvailable_bytes` mostrando memoria disponible
-  - `node_filesystem_avail_bytes` mostrando espacio en disco
-- Sección Alerts mostrando las tres alertas configuradas (HighCPUUsage, HighMemoryUsage, HighDiskUsage)
-
-**4. Visualización con Grafana (3:30 - 5:00)**
-- Login en http://44.220.163.23:3000 con credenciales admin/admin
-- Data Sources mostrando Prometheus conectado y funcionando
-- Dashboard personalizado con tres paneles:
-  - Gráfico de CPU usage en tiempo real
-  - Gauge de memoria mostrando porcentaje de uso
-  - Stat panel de disco mostrando espacio disponible
-- Dashboard importado "Node Exporter Full" (ID 1860) mostrando métricas completas del sistema
-
-**5. Verificación de Conectividad (5:00 - 5:30)**
-- Terminal SSH conectado a la instancia EC2
-- Comando `docker ps` mostrando contenedores corriendo
-- Comandos `ps aux | grep prometheus`, `ps aux | grep node_exporter`, `ps aux | grep grafana` mostrando procesos activos
-
-### Capturas de Pantalla
-
-Adicionalmente se incluyen capturas estáticas de cada componente del sistema como respaldo de las evidencias mostradas en el video.
+enlace al video en Youtube: https://youtu.be/J1ae6yJQe78
 
 ---
 
@@ -210,9 +179,9 @@ Parcial-Final-Servicios-Telematicos/
 
 ---
 
-## Autor
+## Autores
 
-**Juan**  
+**Juan Plata y Maryori Lasso**  
 Universidad Autónoma de Occidente  
-Ingeniería Telemática  
+Ingeniería Informática  
 Noviembre 2025
