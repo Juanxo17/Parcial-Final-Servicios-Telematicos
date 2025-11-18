@@ -1,50 +1,47 @@
-version: '3.8'  # Versión de Docker Compose
+version: '3.8'
 
-services:  # Definimos los servicios (contenedores)
-  
-  # Servicio 1: Base de datos MySQL
+services:
   db:
-    image: mysql:8.0  # Usamos imagen oficial de MySQL
+    image: mysql:8.0
     container_name: mysql_db
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Contraseña del root
-      MYSQL_DATABASE: myflaskapp  # Base de datos que se creará
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: myflaskapp
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Script SQL para inicializar
-      - db_data:/var/lib/mysql  # Persistencia de datos
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - db_data:/var/lib/mysql
     ports:
-      - "3306:3306"  # Puerto expuesto
+      - "3306:3306"
     networks:
-      - webapp-network  # Red compartida
-    healthcheck:  # Verifica que MySQL esté listo
+      - webapp-network
+    healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # Servicio 2: Aplicación Web
   webapp:
-    build: .  # Construye desde el Dockerfile en este directorio
+    build: .
     container_name: flask_webapp
     depends_on:
       db:
-        condition: service_healthy  # Espera a que MySQL esté listo
+        condition: service_healthy
     environment:
-      MYSQL_HOST: db  # Nombre del servicio MySQL
+      MYSQL_HOST: db
       MYSQL_USER: root
       MYSQL_PASSWORD: root
       MYSQL_DB: myflaskapp
     ports:
-      - "80:80"    # HTTP
-      - "443:443"  # HTTPS
-      - "5000:5000"  # Flask (desarrollo)
+      - "80:80"
+      - "443:443"
+      - "5000:5000"
     networks:
       - webapp-network
-    restart: unless-stopped  # Reinicia automáticamente si falla
+    restart: unless-stopped
 
 networks:
   webapp-network:
-    driver: bridge  # Red tipo puente
+    driver: bridge
 
 volumes:
-  db_data:  # Volumen para persistir datos de MySQL
+  db_data:
